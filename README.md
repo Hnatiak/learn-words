@@ -5,8 +5,8 @@ To customize the tests for yourself, follow these steps:
 2. Open VSCode and console (Ctrl + ` or Terminal > New Terminal)
 3. Clone the repository:
 ```git clone https://github.com/Hnatiak/learn-words.git```
-3. 1 Write: cd learn-words
-4. Navigate to the script.js file and modify the words according to your preferences:
+4. Write: cd learn-words
+5. Navigate to the script.js file and modify the words according to your preferences:
 
 ```javascript
 const jsonData = {
