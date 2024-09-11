@@ -14,6 +14,7 @@ const jsonData = {
         "write here": "write here"
     }
 };
+```
 
 Note: The first word represents the question or item you want to translate, and the second word is the correct answer.
 
