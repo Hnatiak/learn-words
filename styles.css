@@ -57,3 +57,10 @@ button:hover {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+
+
+@media (max-width: 480px) {
+    .options-container {
+        display: block;
+    }
+}
