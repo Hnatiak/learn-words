@@ -156,20 +156,73 @@ function loadQuestion() {
 }
 
 function handleOptionClick(element, answer) {
+    // Заблокувати всі варіанти після першого кліку
+    const options = document.querySelectorAll('.option');
+    options.forEach(option => option.classList.add('disabled'));
+
     const question = questions[currentQuestionIndex];
     const correctAnswers = jsonData.translate[question];
     const isCorrect = Array.isArray(correctAnswers) ? correctAnswers.includes(answer) : correctAnswers === answer;
-    
+
     if (isCorrect) {
         element.classList.add('correct');
+
+        const rightElement = document.getElementById('right');
+        let rightCount = parseInt(rightElement.textContent);
+        rightElement.textContent = rightCount + 1;
     } else {
         element.classList.add('incorrect');
+
+        const notRightElement = document.getElementById('not-right');
+        let notRightCount = parseInt(notRightElement.textContent);
+        notRightElement.textContent = notRightCount + 1;
     }
     
     setTimeout(() => {
         currentQuestionIndex++;
         loadQuestion();
     }, 1000);
+}
+
+function loadQuestion() {
+    if (currentQuestionIndex >= questions.length) {
+        alert('No more questions. You can stop the game.');
+        return;
+    }
+    
+    const question = questions[currentQuestionIndex];
+    const correctAnswers = jsonData.translate[question];
+    
+    const questionElement = document.getElementById('question');
+    const optionsContainer = document.getElementById('options-container');
+    
+    questionElement.textContent = question;
+    
+    optionsContainer.innerHTML = ''; // Clear previous options
+
+    // Generate a list of options including one correct answer and some random ones
+    const options = getRandomAnswers(Array.isArray(correctAnswers) ? correctAnswers : [correctAnswers], 3);
+    
+    // Ensure one option is correct
+    if (correctAnswers.length > 0) {
+        const correctAnswer = Array.isArray(correctAnswers) ? correctAnswers[Math.floor(Math.random() * correctAnswers.length)] : correctAnswers;
+        if (!options.includes(correctAnswer)) {
+            options[Math.floor(Math.random() * options.length)] = correctAnswer;
+        }
+    }
+
+    options.forEach(option => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'option';
+        optionElement.textContent = option;
+        optionElement.addEventListener('click', () => {
+            // Перевіряємо, чи варіант не заблокований
+            if (!optionElement.classList.contains('disabled')) {
+                handleOptionClick(optionElement, option);
+            }
+        });
+        optionsContainer.appendChild(optionElement);
+    });
 }
 
 function resetGame() {
@@ -187,81 +240,3 @@ document.getElementById('play-again-button').addEventListener('click', () => {
 });
 
 loadQuestion();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const jsonData = {
-//     "translate": {
-//         "hello": "привіт",
-//         "how are you?": "як ти",
-//         "what do you do": ["що ти робиш", "чим займаєшся"]
-//     }
-// };
-
-// let questions = Object.keys(jsonData.translate);
-// let currentQuestionIndex = 0;
-
-// function loadQuestion() {
-//     if (currentQuestionIndex >= questions.length) {
-//         alert('No more questions. You can stop the game.');
-//         return;
-//     }
-    
-//     const question = questions[currentQuestionIndex];
-//     const answers = jsonData.translate[question];
-    
-//     const questionElement = document.getElementById('question');
-//     const optionsContainer = document.getElementById('options-container');
-    
-//     questionElement.textContent = question;
-    
-//     optionsContainer.innerHTML = ''; // Clear previous options
-    
-//     const allAnswers = Array.isArray(answers) ? answers : [answers];
-//     allAnswers.forEach(answer => {
-//         const optionElement = document.createElement('div');
-//         optionElement.className = 'option';
-//         optionElement.textContent = answer;
-//         optionElement.addEventListener('click', () => handleOptionClick(optionElement, answer));
-//         optionsContainer.appendChild(optionElement);
-//     });
-// }
-
-// function handleOptionClick(element, answer) {
-//     const question = questions[currentQuestionIndex];
-//     const correctAnswers = jsonData.translate[question];
-//     const isCorrect = Array.isArray(correctAnswers) ? correctAnswers.includes(answer) : correctAnswers === answer;
-    
-//     if (isCorrect) {
-//         element.classList.add('correct');
-//     } else {
-//         element.classList.add('incorrect');
-//     }
-    
-//     setTimeout(() => {
-//         currentQuestionIndex++;
-//         loadQuestion();
-//     }, 1000);
-// }
-
-// document.getElementById('stop-button').addEventListener('click', () => {
-//     alert('Game stopped.');
-//     currentQuestionIndex = questions.length; // End the game
-// });
-
-// loadQuestion();
