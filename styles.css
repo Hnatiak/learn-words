@@ -5,45 +5,74 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #e8f4fa;
 }
 
 #test-container {
     text-align: center;
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid #007BFF;
+    transition: transform 0.3s ease;
+}
+
+#test-container:hover {
+    transform: scale(1.02);
 }
 
 button {
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 50px;
-    width: 140px;
+    width: 150px;
+    background-color: #007BFF;
+    color: white;
+    border: 2px solid transparent;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.back-button {
+    text-decoration: none;
+    color: #007BFF;
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 2px solid #007BFF;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+    background-color: #007BFF;
+    color: white;
 }
 
 .buttons {
     display: flex;
     justify-content: space-evenly;
+    gap: 15px;
+    margin-bottom: 45px;
 }
-
 
 .link {
     margin: 15px;
-}
-
-button:hover {
-    background-color: #ddd;
 }
 
 .options-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    gap: 10px
+    gap: 10px;
 }
 
 .container {
@@ -59,18 +88,54 @@ button:hover {
     justify-content: space-evenly;
     gap: 10px;
     margin-top: 20px;
+
+    div {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+    }
+}
+
+.test-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+
+    a {
+        border: 2px solid #007BFF; /* Blue border */
+        padding: 12px 30px; /* More padding for a button-like appearance */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 18px;
+        color: #007BFF; /* Blue text */
+        font-weight: 700;
+        border-radius: 5px; /* Rounded corners */
+
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+    }
+
+    a:hover {
+        background-color: #007BFF; /* Blue background on hover */
+        color: white; /* White text on hover */
+    }
 }
 
 .option {
     display: block;
     margin: 10px 0;
-    padding: 10px;
-    border: 3px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
+    padding: 12px;
+    border: 3px solid #007BFF; /* Blue border */
     border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Animation for hover effect */
+
+    &:hover {
+        background-color: #e0f7fa; /* Light blue background on hover */
+        transform: translateY(-2px); /* Slight lift effect on hover */
+    }
 }
 
 .option.correct {
@@ -83,7 +148,8 @@ button:hover {
     border-color: #f5c6cb;
 }
 
-.right, .not-right {
+.right,
+.not-right {
     font-size: 20px;
     font-weight: bold;
     display: block;
@@ -97,15 +163,39 @@ button:hover {
     color: red;
 }
 
-
 @media (max-width: 480px) {
+    h1 {
+        font-size: 18px;
+    }
+
+    .container {
+        margin: 10px;
+    }
+
     .options-container {
         display: block;
+
+        .option {
+            padding: 12px 25px 12px 25px;
+        }
+    }
+
+    .test-selector {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+
+        a {
+            font-size: 16px;
+            width: auto;
+            gap: 15px;
+        }
     }
 
     .buttons {
         display: flex;
-        flex-direction: column;
+        width: 100%;
 
         button {
             width: 100%;
